@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Feedback Generator</title>
+  <link rel="icon" href="./public/icon.png" type="image/png" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    .workflow-step {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .workflow-arrow {
+      text-align: center;
+      font-size: 24px;
+      color: #667eea;
+      margin: 10px 0;
+    }
+
+    .feedback-form {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 15px 0;
+      border-left: 4px solid #667eea;
+    }
+
+    .nav-tabs .nav-link {
+      border-radius: 10px 10px 0 0;
+      margin-right: 5px;
+    }
+
+    .nav-tabs .nav-link.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: #667eea;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 25px;
+      padding: 10px 30px;
+    }
+
+    .btn-secondary {
+      border-radius: 25px;
+      padding: 10px 30px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .workflow-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .team-member {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      margin: 5px;
+      display: inline-block;
+    }
+
+    /* Custom colors for progress bar */
+    .progress-bar.bad {
+      background-color: #dc3545; /* red */
+    }
+    .progress-bar.average {
+      background-color: #ffc107; /* yellow */
+      color: black;
+    }
+    .progress-bar.good {
+      background-color: #0d6efd; /* blue */
+    }
+    .progress-bar.best {
+      background-color: #198754; /* green */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Feedback Form -->
+    <div class="feedback-form">
+      <h2 class="mb-4"><i class="fas fa-clipboard-list"></i> Feedback Form</h2>
+
+      <form id="feedbackForm">
+        <!-- Support Type Tabs -->
+        <div class="form-section">
+          <h4><i class="fas fa-headset"></i> Support Type</h4>
+          <ul class="nav nav-tabs" id="supportTypeTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="interview-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#interview"
+                type="button"
+                role="tab"
+              >
+                <i class="fas fa-user-tie"></i> Interview Mail
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="mock-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#mock"
+                type="button"
+                role="tab"
+              >
+                <i class="fas fa-chalkboard-teacher"></i> Mock Interview
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="resume-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#resume"
+                type="button"
+                role="tab"
+              >
+                <i class="fas fa-file-alt"></i> Resume Understanding
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="assessment-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#assessment"
+                type="button"
+                role="tab"
+              >
+                <i class="fas fa-clipboard-check"></i> Assessment
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="supportTypeContent">
+          <!-- Interview Mail Feedback -->
+          <div class="tab-pane fade show active" id="interview" role="tabpanel">
+            <div class="form-section">
+              <h5><i class="fas fa-user-tie"></i> Interview Mail Feedback Format</h5>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="interviewTaskStatus" class="form-label"
+                    >Task Status *</label
+                  >
+                  <select class="form-select" id="interviewTaskStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Rescheduled">Rescheduled</option>
+                    <option value="Not Done">Not Done</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="interviewRound" class="form-label"
+                    >Interview Round *</label
+                  >
+                  <select class="form-select" id="interviewRound" required>
+                    <option value="">Select Round</option>
+                    <option value="Screening">Screening</option>
+                    <option value="1st Round">1st Round</option>
+                    <option value="2nd Round">2nd Round</option>
+                    <option value="3rd Round">3rd Round</option>
+                    <option value="Technical">Technical</option>
+                    <option value="Final">Final</option>
+                    <option value="HR Round">HR Round</option>
+                    <option value="other Round">other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="interviewFeedback" class="form-label"
+                  >Feedback *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="interviewFeedback"
+                  rows="4"
+                  placeholder="Brief on the candidate's performance: answer quality, communication, confidence, possibility of moving to next round. If cancelled/not done, state reason."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mt-3">
+                <label for="interviewQuestions" class="form-label"
+                  >Interview Questions Asked</label
+                >
+                <textarea
+                  class="form-control"
+                  id="interviewQuestions"
+                  rows="4"
+                  placeholder="List the questions asked in the interview (if AI-generated, ensure review before sharing)"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mock Interview Feedback -->
+          <div class="tab-pane fade" id="mock" role="tabpanel">
+            <div class="form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="mockTaskStatus" class="form-label"
+                    >Task Status *</label
+                  >
+                  <select class="form-select" id="mockTaskStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Not Done">Not Done</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="mockFeedback" class="form-label"
+                  >Feedback *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="mockFeedback"
+                  rows="4"
+                  placeholder="Comments on candidate behavior, technical/soft skills, communication ability, and key improvement areas."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mt-3">
+                <label for="mockQuestions" class="form-label"
+                  >Mock Interview Questions (If Evaluation)</label
+                >
+                <textarea
+                  class="form-control"
+                  id="mockQuestions"
+                  rows="4"
+                  placeholder="List of questions asked during the session (ensure validity if auto-generated)"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resume Understanding Feedback -->
+          <div class="tab-pane fade" id="resume" role="tabpanel">
+            <div class="form-section">
+              <h5><i class="fas fa-file-alt"></i> Resume Understanding Feedback Format</h5>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="resumeTaskStatus" class="form-label"
+                    >Task Status *</label
+                  >
+                  <select class="form-select" id="resumeTaskStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Not Done">Not Done</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="resumeFeedback" class="form-label"
+                  >Feedback *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="resumeFeedback"
+                  rows="4"
+                  placeholder="Notes or remarks based on resume analysis – skill highlights, gaps, relevant experience, or inconsistencies."
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assessment Feedback -->
+          <div class="tab-pane fade" id="assessment" role="tabpanel">
+            <div class="form-section">
+              <h5><i class="fas fa-clipboard-check"></i> Assessment Feedback Format</h5>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="assessmentTaskStatus" class="form-label"
+                    >Task Status *</label
+                  >
+                  <select class="form-select" id="assessmentTaskStatus" required>
+                    <option value="">Select Status</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Not Done">Not Done</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="assessmentType" class="form-label"
+                    >Assessment Type *</label
+                  >
+                  <select class="form-select" id="assessmentType" required>
+                    <option value="">Select Type</option>
+                    <option value="Behavioral">Behavioral</option>
+                    <option value="Technical">Technical</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="assessmentFeedback" class="form-label"
+                  >Feedback *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="assessmentFeedback"
+                  rows="4"
+                  placeholder="Briefly describe the assessment — e.g., coding challenge (JavaScript array manipulations), behavioral test (situational judgment), case study, multiple-choice test, etc. Was the assessment completed end-to-end? Any sections that were complex or required extra effort? If applicable, mention whether any instructions from the candidate/client were followed."
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center mt-4">
+          <button
+            type="button"
+            class="btn btn-secondary me-3"
+            onclick="clearForm()"
+          >
+            <i class="fas fa-eraser"></i> Clear Form
+          </button>
+          <button type="button" class="btn btn-primary" onclick="generateFeedback()">
+            <i class="fas fa-magic"></i> Generate Feedback
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Generated Feedback Output -->
+    <div id="feedbackOutput" class="feedback-form hidden">
+      <h3><i class="fas fa-file-text"></i> Generated Feedback</h3>
+
+      <!-- Feedback Quality Bar and Label -->
+      <div id="feedbackQualityContainer" class="mb-3">
+        <strong>Feedback Quality: </strong
+        ><span id="feedbackQualityLabel"></span>
+        <div
+          class="progress"
+          style="height: 20px; border-radius: 10px; margin-top: 5px"
+        >
+          <div
+            id="feedbackQualityBar"
+            class="progress-bar"
+            role="progressbar"
+            style="width: 0%;"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <pre id="generatedText" class="bg-light p-3 rounded"></pre>
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          onclick="copyToClipboard()"
+        >
+          <i class="fas fa-copy"></i> Copy to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function evaluateFeedbackQuality(feedbackText) {
+      if (!feedbackText || feedbackText.trim().length < 20) {
+        return 'Bad';
+      }
+      const length = feedbackText.trim().length;
+
+      if (length < 50) {
+        return 'Average';
+      } else if (length < 150) {
+        return 'Good';
+      } else {
+        return 'Best';
+      }
+    }
+
+    function updateFeedbackQualityUI(rating) {
+      const label = document.getElementById('feedbackQualityLabel');
+      const bar = document.getElementById('feedbackQualityBar');
+
+      label.textContent = rating || '';
+
+      // Reset classes
+      bar.className = 'progress-bar';
+
+      if (!rating) {
+        bar.style.width = '0%';
+        bar.setAttribute('aria-valuenow', 0);
+        return;
+      }
+
+      let width = 0;
+      let cssClass = '';
+      switch (rating.toLowerCase()) {
+        case 'bad':
+          width = 25;
+          cssClass = 'bad';
+          break;
+        case 'average':
+          width = 50;
+          cssClass = 'average';
+          break;
+        case 'good':
+          width = 75;
+          cssClass = 'good';
+          break;
+        case 'best':
+          width = 100;
+          cssClass = 'best';
+          break;
+        default:
+          width = 0;
+          cssClass = '';
+      }
+
+      bar.style.width = width + '%';
+      bar.setAttribute('aria-valuenow', width);
+      bar.classList.add(cssClass);
+    }
+
+    function generateFeedback() {
+      const activeTab = document.querySelector('.nav-link.active').id;
+      let feedback = '';
+
+      switch (activeTab) {
+        case 'interview-tab':
+          feedback = generateInterviewFeedback();
+          break;
+        case 'mock-tab':
+          feedback = generateMockFeedback();
+          break;
+        case 'resume-tab':
+          feedback = generateResumeFeedback();
+          break;
+        case 'assessment-tab':
+          feedback = generateAssessmentFeedback();
+          break;
+      }
+
+      if (feedback) {
+        document.getElementById('generatedText').textContent = feedback;
+        document.getElementById('feedbackOutput').classList.remove('hidden');
+        document
+          .getElementById('feedbackOutput')
+          .scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function generateInterviewFeedback() {
+      const taskStatus = document.getElementById('interviewTaskStatus').value;
+      const interviewRound = document.getElementById('interviewRound').value;
+      const feedback = document.getElementById('interviewFeedback').value;
+      const questions = document.getElementById('interviewQuestions').value;
+
+      if (!taskStatus || !interviewRound || !feedback) {
+        alert('Please fill in all required fields for Interview Mail Feedback');
+        return '';
+      }
+
+      let result = ``;
+      result += `Task Status: ${taskStatus}\n`;
+      result += `Interview Round: ${interviewRound}\n\n`;
+      result += `Feedback:\n${feedback}\n\n`;
+
+      if (questions.trim()) {
+        let count = 0;
+        const skipPatterns = [
+          /technical questions/i,
+          /situational \/ problem-solving/i,
+        ];
+        const numberedQuestions = questions
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line !== '') // remove blank lines
+          .map((line) => {
+            if (skipPatterns.some((pattern) => pattern.test(line))) {
+              return line; // no numbering
+            }
+            count++;
+            return `${count}. ${line}`;
+          })
+          .join('\n');
+        result += `Interview Questions Asked:\n${numberedQuestions}\n\n`;
+      }
+
+      // Update outside feedback quality UI only, do NOT add text inside copy box
+      const rating = evaluateFeedbackQuality(feedback);
+      updateFeedbackQualityUI(rating);
+
+      return result;
+    }
+
+    function generateMockFeedback() {
+      const taskStatus = document.getElementById('mockTaskStatus').value;
+      const feedback = document.getElementById('mockFeedback').value;
+      const questions = document.getElementById('mockQuestions').value;
+
+      if (!taskStatus || !feedback) {
+        alert('Please fill in all required fields for Mock Interview Feedback');
+        return '';
+      }
+
+      let result = ``;
+      result += `Task Status: ${taskStatus}\n\n`;
+      result += `Feedback:\n${feedback}\n\n`;
+
+      if (questions.trim()) {
+        let count = 0;
+        const skipPatterns = [
+          /technical questions/i,
+          /situational \/ problem-solving/i,
+        ];
+        const numberedQuestions = questions
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line !== '') // remove blank lines
+          .map((line) => {
+            if (skipPatterns.some((pattern) => pattern.test(line))) {
+              return line; // no numbering
+            }
+            count++;
+            return `${count}. ${line}`;
+          })
+          .join('\n');
+        result += `Mock Interview Questions (If Evaluation):\n${numberedQuestions}`;
+      }
+
+      const rating = evaluateFeedbackQuality(feedback);
+      updateFeedbackQualityUI(rating);
+
+      return result;
+    }
+
+    function generateResumeFeedback() {
+      const taskStatus = document.getElementById('resumeTaskStatus').value;
+      const feedback = document.getElementById('resumeFeedback').value;
+
+      if (!taskStatus || !feedback) {
+        alert(
+          'Please fill in all required fields for Resume Understanding Feedback'
+        );
+        return '';
+      }
+
+      let result = `🔹 Resume Understanding Feedback Format\n\n`;
+      result += `Task Status: ${taskStatus}\n\n`;
+      result += `Feedback:\n${feedback}\n\n`;
+
+      const rating = evaluateFeedbackQuality(feedback);
+      updateFeedbackQualityUI(rating);
+
+      return result;
+    }
+
+    function generateAssessmentFeedback() {
+      const taskStatus = document.getElementById('assessmentTaskStatus').value;
+      const assessmentType = document.getElementById('assessmentType').value;
+      const feedback = document.getElementById('assessmentFeedback').value;
+
+      if (!taskStatus || !assessmentType || !feedback) {
+        alert('Please fill in all required fields for Assessment Feedback');
+        return '';
+      }
+
+      let result = `🔹 Assessment Feedback Format\n\n`;
+      result += `Task Status: ${taskStatus}\n`;
+      result += `Assessment Type: ${assessmentType}\n\n`;
+      result += `Feedback:\n${feedback}\n\n`;
+
+      const rating = evaluateFeedbackQuality(feedback);
+      updateFeedbackQualityUI(rating);
+
+      return result;
+    }
+
+    function clearForm() {
+      document.getElementById('feedbackForm').reset();
+      document.getElementById('feedbackOutput').classList.add('hidden');
+      updateFeedbackQualityUI('');
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById('generatedText').textContent; // only feedback text copied
+      navigator.clipboard
+        .writeText(text)
+        .then(function () {
+          alert('Feedback copied to clipboard!');
+        })
+        .catch(function (err) {
+          console.error('Could not copy text: ', err);
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert('Feedback copied to clipboard!');
+        });
+    }
+
+    // Clear generated output when switching tabs
+    document.querySelectorAll('.nav-link').forEach((tab) => {
+      tab.addEventListener('click', function () {
+        document.getElementById('feedbackOutput').classList.add('hidden');
+        updateFeedbackQualityUI('');
+      });
+    });
+  </script>
+</body>
+</html>
