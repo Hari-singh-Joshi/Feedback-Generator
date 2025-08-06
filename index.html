@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>Feedback Generator</title>
+  <title>Feedback Generator</title>
   <link rel="icon" href="./public/icon.png" type="image/png" />
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -22,14 +22,12 @@
       margin: 10px 0;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
     .workflow-arrow {
       text-align: center;
       font-size: 24px;
       color: #667eea;
       margin: 10px 0;
     }
-
     .feedback-form {
       background: #f8f9fa;
       border-radius: 15px;
@@ -37,7 +35,6 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
       margin-top: 30px;
     }
-
     .form-section {
       background: white;
       border-radius: 10px;
@@ -45,34 +42,28 @@
       margin: 15px 0;
       border-left: 4px solid #667eea;
     }
-
     .nav-tabs .nav-link {
       border-radius: 10px 10px 0 0;
       margin-right: 5px;
     }
-
     .nav-tabs .nav-link.active {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border-color: #667eea;
     }
-
     .btn-primary {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border: none;
       border-radius: 25px;
       padding: 10px 30px;
     }
-
     .btn-secondary {
       border-radius: 25px;
       padding: 10px 30px;
     }
-
     .hidden {
       display: none;
     }
-
     .workflow-header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -80,7 +71,6 @@
       text-align: center;
       margin-bottom: 30px;
     }
-
     .team-member {
       background: rgba(255, 255, 255, 0.1);
       padding: 8px 15px;
@@ -88,7 +78,6 @@
       margin: 5px;
       display: inline-block;
     }
-
     /* Custom colors for progress bar */
     .progress-bar.bad {
       background-color: #dc3545; /* red */
@@ -103,6 +92,12 @@
     .progress-bar.best {
       background-color: #198754; /* green */
     }
+    
+    /* Bold headings in output */
+    #generatedText {
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
   </style>
 </head>
 <body>
@@ -110,7 +105,6 @@
     <!-- Feedback Form -->
     <div class="feedback-form">
       <h2 class="mb-4"><i class="fas fa-clipboard-list"></i> Feedback Form</h2>
-
       <form id="feedbackForm">
         <!-- Support Type Tabs -->
         <div class="form-section">
@@ -166,14 +160,12 @@
             </li>
           </ul>
         </div>
-
         <!-- Tab Content -->
         <div class="tab-content" id="supportTypeContent">
           <!-- Interview Mail Feedback -->
           <div class="tab-pane fade show active" id="interview" role="tabpanel">
             <div class="form-section">
               <h5><i class="fas fa-user-tie"></i> Interview Mail Feedback Format</h5>
-
               <div class="row">
                 <div class="col-md-6">
                   <label for="interviewTaskStatus" class="form-label"
@@ -204,7 +196,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="mt-3">
                 <label for="interviewFeedback" class="form-label"
                   >Feedback *</label
@@ -217,7 +208,6 @@
                   required
                 ></textarea>
               </div>
-
               <div class="mt-3">
                 <label for="interviewQuestions" class="form-label"
                   >Interview Questions Asked</label
@@ -231,7 +221,6 @@
               </div>
             </div>
           </div>
-
           <!-- Mock Interview Feedback -->
           <div class="tab-pane fade" id="mock" role="tabpanel">
             <div class="form-section">
@@ -248,7 +237,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="mt-3">
                 <label for="mockFeedback" class="form-label"
                   >Feedback *</label
@@ -261,7 +249,6 @@
                   required
                 ></textarea>
               </div>
-
               <div class="mt-3">
                 <label for="mockQuestions" class="form-label"
                   >Mock Interview Questions (If Evaluation)</label
@@ -275,12 +262,10 @@
               </div>
             </div>
           </div>
-
           <!-- Resume Understanding Feedback -->
           <div class="tab-pane fade" id="resume" role="tabpanel">
             <div class="form-section">
               <h5><i class="fas fa-file-alt"></i> Resume Understanding Feedback Format</h5>
-
               <div class="row">
                 <div class="col-md-6">
                   <label for="resumeTaskStatus" class="form-label"
@@ -294,7 +279,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="mt-3">
                 <label for="resumeFeedback" class="form-label"
                   >Feedback *</label
@@ -309,12 +293,10 @@
               </div>
             </div>
           </div>
-
           <!-- Assessment Feedback -->
           <div class="tab-pane fade" id="assessment" role="tabpanel">
             <div class="form-section">
               <h5><i class="fas fa-clipboard-check"></i> Assessment Feedback Format</h5>
-
               <div class="row">
                 <div class="col-md-6">
                   <label for="assessmentTaskStatus" class="form-label"
@@ -338,7 +320,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="mt-3">
                 <label for="assessmentFeedback" class="form-label"
                   >Feedback *</label
@@ -354,7 +335,6 @@
             </div>
           </div>
         </div>
-
         <!-- Action Buttons -->
         <div class="text-center mt-4">
           <button
@@ -370,11 +350,9 @@
         </div>
       </form>
     </div>
-
     <!-- Generated Feedback Output -->
     <div id="feedbackOutput" class="feedback-form hidden">
       <h3><i class="fas fa-file-text"></i> Generated Feedback</h3>
-
       <!-- Feedback Quality Bar and Label -->
       <div id="feedbackQualityContainer" class="mb-3">
         <strong>Feedback Quality: </strong
@@ -394,7 +372,6 @@
           ></div>
         </div>
       </div>
-
       <div class="form-section">
         <pre id="generatedText" class="bg-light p-3 rounded"></pre>
         <button
@@ -407,7 +384,6 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function evaluateFeedbackQuality(feedbackText) {
@@ -415,7 +391,6 @@
         return 'Bad';
       }
       const length = feedbackText.trim().length;
-
       if (length < 50) {
         return 'Average';
       } else if (length < 150) {
@@ -428,18 +403,14 @@
     function updateFeedbackQualityUI(rating) {
       const label = document.getElementById('feedbackQualityLabel');
       const bar = document.getElementById('feedbackQualityBar');
-
       label.textContent = rating || '';
-
       // Reset classes
       bar.className = 'progress-bar';
-
       if (!rating) {
         bar.style.width = '0%';
         bar.setAttribute('aria-valuenow', 0);
         return;
       }
-
       let width = 0;
       let cssClass = '';
       switch (rating.toLowerCase()) {
@@ -463,16 +434,43 @@
           width = 0;
           cssClass = '';
       }
-
       bar.style.width = width + '%';
       bar.setAttribute('aria-valuenow', width);
       bar.classList.add(cssClass);
     }
 
+    function processQuestions(questionsText) {
+      if (!questionsText.trim()) return '';
+      
+      const lines = questionsText.split('\n').map(line => line.trim()).filter(line => line !== '');
+      const skipPatterns = [
+        /technical questions/i,
+        /situational \/ problem-solving/i,
+      ];
+      
+      let questionCounter = 0;
+      
+      return lines.map(line => {
+        // Skip lines that match skip patterns
+        if (skipPatterns.some(pattern => pattern.test(line))) {
+          return line;
+        }
+        
+        // Check if line already has numbering (starts with number followed by dot/parenthesis)
+        const hasNumbering = /^\d+[\.\)\-\:]/.test(line);
+        
+        if (hasNumbering) {
+          return line; // Keep existing numbering
+        } else {
+          questionCounter++;
+          return `${questionCounter}. ${line}`;
+        }
+      }).join('\n');
+    }
+
     function generateFeedback() {
       const activeTab = document.querySelector('.nav-link.active').id;
       let feedback = '';
-
       switch (activeTab) {
         case 'interview-tab':
           feedback = generateInterviewFeedback();
@@ -487,9 +485,8 @@
           feedback = generateAssessmentFeedback();
           break;
       }
-
       if (feedback) {
-        document.getElementById('generatedText').textContent = feedback;
+        document.getElementById('generatedText').innerHTML = feedback;
         document.getElementById('feedbackOutput').classList.remove('hidden');
         document
           .getElementById('feedbackOutput')
@@ -508,33 +505,17 @@
         return '';
       }
 
-      let result = ``;
-      result += `Task Status: ${taskStatus}\n`;
-      result += `Interview Round: ${interviewRound}\n\n`;
-      result += `Feedback:\n${feedback}\n\n`;
+      let result = '';
+      result += `<strong>Task Status:</strong> ${taskStatus}\n`;
+      result += `<strong>Interview Round:</strong> ${interviewRound}\n\n`;
+      result += `<strong>Feedback:</strong>\n${feedback}\n\n`;
 
       if (questions.trim()) {
-        let count = 0;
-        const skipPatterns = [
-          /technical questions/i,
-          /situational \/ problem-solving/i,
-        ];
-        const numberedQuestions = questions
-          .split('\n')
-          .map((line) => line.trim())
-          .filter((line) => line !== '') // remove blank lines
-          .map((line) => {
-            if (skipPatterns.some((pattern) => pattern.test(line))) {
-              return line; // no numbering
-            }
-            count++;
-            return `${count}. ${line}`;
-          })
-          .join('\n');
-        result += `Interview Questions Asked:\n${numberedQuestions}\n\n`;
+        const processedQuestions = processQuestions(questions);
+        result += `<strong>Interview Questions Asked:</strong>\n${processedQuestions}\n\n`;
       }
 
-      // Update outside feedback quality UI only, do NOT add text inside copy box
+      // Update feedback quality UI
       const rating = evaluateFeedbackQuality(feedback);
       updateFeedbackQualityUI(rating);
 
@@ -551,29 +532,13 @@
         return '';
       }
 
-      let result = ``;
-      result += `Task Status: ${taskStatus}\n\n`;
-      result += `Feedback:\n${feedback}\n\n`;
+      let result = '';
+      result += `<strong>Task Status:</strong> ${taskStatus}\n\n`;
+      result += `<strong>Feedback:</strong>\n${feedback}\n\n`;
 
       if (questions.trim()) {
-        let count = 0;
-        const skipPatterns = [
-          /technical questions/i,
-          /situational \/ problem-solving/i,
-        ];
-        const numberedQuestions = questions
-          .split('\n')
-          .map((line) => line.trim())
-          .filter((line) => line !== '') // remove blank lines
-          .map((line) => {
-            if (skipPatterns.some((pattern) => pattern.test(line))) {
-              return line; // no numbering
-            }
-            count++;
-            return `${count}. ${line}`;
-          })
-          .join('\n');
-        result += `Mock Interview Questions (If Evaluation):\n${numberedQuestions}`;
+        const processedQuestions = processQuestions(questions);
+        result += `<strong>Mock Interview Questions (If Evaluation):</strong>\n${processedQuestions}`;
       }
 
       const rating = evaluateFeedbackQuality(feedback);
@@ -593,9 +558,9 @@
         return '';
       }
 
-      let result = `🔹 Resume Understanding Feedback Format\n\n`;
-      result += `Task Status: ${taskStatus}\n\n`;
-      result += `Feedback:\n${feedback}\n\n`;
+      let result = `🔹 <strong>Resume Understanding Feedback Format</strong>\n\n`;
+      result += `<strong>Task Status:</strong> ${taskStatus}\n\n`;
+      result += `<strong>Feedback:</strong>\n${feedback}\n\n`;
 
       const rating = evaluateFeedbackQuality(feedback);
       updateFeedbackQualityUI(rating);
@@ -613,10 +578,10 @@
         return '';
       }
 
-      let result = `🔹 Assessment Feedback Format\n\n`;
-      result += `Task Status: ${taskStatus}\n`;
-      result += `Assessment Type: ${assessmentType}\n\n`;
-      result += `Feedback:\n${feedback}\n\n`;
+      let result = `🔹 <strong>Assessment Feedback Format</strong>\n\n`;
+      result += `<strong>Task Status:</strong> ${taskStatus}\n`;
+      result += `<strong>Assessment Type:</strong> ${assessmentType}\n\n`;
+      result += `<strong>Feedback:</strong>\n${feedback}\n\n`;
 
       const rating = evaluateFeedbackQuality(feedback);
       updateFeedbackQualityUI(rating);
@@ -631,9 +596,21 @@
     }
 
     function copyToClipboard() {
-      const text = document.getElementById('generatedText').textContent; // only feedback text copied
+      const htmlContent = document.getElementById('generatedText').innerHTML;
+      // Convert HTML to plain text but keep the structure
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      
+      // Replace <strong> tags with ** for markdown-style bold
+      const textContent = tempDiv.innerHTML
+        .replace(/<strong>/g, '**')
+        .replace(/<\/strong>/g, '**')
+        .replace(/<[^>]*>/g, '') // Remove any remaining HTML tags
+        .replace(/\*\*(.*?)\*\*/g, (match, p1) => p1.toUpperCase() + ':') // Convert **text** to TEXT:
+        .replace(/:\s*\n/g, ':\n'); // Clean up spacing
+
       navigator.clipboard
-        .writeText(text)
+        .writeText(textContent)
         .then(function () {
           alert('Feedback copied to clipboard!');
         })
@@ -641,7 +618,7 @@
           console.error('Could not copy text: ', err);
           // Fallback for older browsers
           const textArea = document.createElement('textarea');
-          textArea.value = text;
+          textArea.value = textContent;
           document.body.appendChild(textArea);
           textArea.select();
           document.execCommand('copy');
@@ -660,3 +637,5 @@
   </script>
 </body>
 </html>
+
+
